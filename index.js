@@ -43,6 +43,18 @@ function getCookie(c_name) {
 var json_str = getCookie("mycookie-memmoryGame");
 if (!json_str == "") names = JSON.parse(json_str);
 
+//to do
+function validation(test_names) {
+  test_names.forEach(element => { if(this == "" || this == null) return false;
+    
+  });
+  
+  return true;
+}
+
+let names2 = parseURLParams(document.URL);
+if (names2 !== undefined && names2.length == NUMBER_OF_NAMES) names = names2;
+
 var symbols = names.concat(names),
   opened = [],
   match = 0,
@@ -169,19 +181,21 @@ $share.on("click", function () {
   }
 
   swal({
-    title: "<strong>Compartilhe este jogo com os nomes:</strong>",
+    title: "<strong>Compartilhe este jogo com os mesmos nomes:</strong>",
     icon: "info",
-    html: '<input type="text" value="'+outputStr+'" onclick="this.select();" readonly></input>',
+    html:
+      '<input type="text" value="' +
+      outputStr +
+      '" onclick="this.select();" readonly></input>',
     showCloseButton: true,
     showCancelButton: true,
     focusConfirm: false,
-    confirmButtonText: '<i class="fa fa-thumbs-up"></i> Copiar',
-    confirmButtonAriaLabel: "Thumbs up, great!",
-    cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
-    cancelButtonAriaLabel: "Thumbs down",
+    confirmButtonText: '<i class="fa fa-clipboard"></i> Copiar',
+    cancelButtonColor: "#EE0E51",
+    cancelButtonText: "Cancelar",
     preConfirm: () => {
       copyToClipboard(outputStr);
-    }
+    },
   });
 });
 
@@ -320,29 +334,24 @@ function parseURLParams(url) {
 
 function copyToClipboard(text) {
   if (window.clipboardData && window.clipboardData.setData) {
-      // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
-      return window.clipboardData.setData("Text", text);
-
-  }
-  else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
-      var textarea = document.createElement("textarea");
-      textarea.textContent = text;
-      textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-          return document.execCommand("copy");  // Security exception may be thrown by some browsers.
-      }
-      catch (ex) {
-          console.warn("Copy to clipboard failed.", ex);
-          return prompt("Copy to clipboard: Ctrl+C, Enter", text);
-      }
-      finally {
-          document.body.removeChild(textarea);
-      }
+    // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+    return window.clipboardData.setData("Text", text);
+  } else if (
+    document.queryCommandSupported &&
+    document.queryCommandSupported("copy")
+  ) {
+    var textarea = document.createElement("textarea");
+    textarea.textContent = text;
+    textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in Microsoft Edge.
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      return document.execCommand("copy"); // Security exception may be thrown by some browsers.
+    } catch (ex) {
+      console.warn("Copy to clipboard failed.", ex);
+      return prompt("Copy to clipboard: Ctrl+C, Enter", text);
+    } finally {
+      document.body.removeChild(textarea);
+    }
   }
 }
-
-let names2 = parseURLParams(document.URL);
-console.log(names2);
-console.log(names);
