@@ -30,7 +30,7 @@ function getCookie(c_name) {
 
 
 var json_str = getCookie('mycookie-memmoryGame');
-if(!json_str === undefined)	names = JSON.parse(json_str); 
+if(!json_str == '')	names = JSON.parse(json_str); 
 
 var symbols =  names.concat(names),
 		opened = [],
