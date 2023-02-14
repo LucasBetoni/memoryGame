@@ -43,7 +43,7 @@ var symbols =  names.concat(names),
 		$restart = $scorePanel.find('.restart > .fa-repeat'),
 		$mudarNomes = $scorePanel.find('.restart > .fa-cog'),
 		$informacoes = $scorePanel.find('.restart > .fa-info'),
-		delay = 1400,
+		delay = 800,
 		gameCardsQTY = symbols.length / 2,
 		rank3stars = gameCardsQTY + 2,
 		rank2stars = gameCardsQTY + 6,
@@ -214,11 +214,15 @@ $deck.on('click', '.card:not(".match, .open")', function() {
       match++;
     } else {
       $deck.find('.open').addClass('notmatch animated infinite wobble');
-			setTimeout(function() {
+			
+	  
+	  setTimeout(function() {
 				$deck.find('.open').removeClass('animated infinite wobble');
-			}, delay / 1.5);
-      setTimeout(function() {
-        $deck.find('.open').removeClass('open show notmatch animated infinite wobble');
+	  }, delay / 1.5);
+     
+		
+			setTimeout(function() {
+				document.body.addEventListener('click',()=>{$deck.find('.open').removeClass('open show notmatch animated infinite wobble');},{once : true})
       }, delay);
     }
     opened = [];
