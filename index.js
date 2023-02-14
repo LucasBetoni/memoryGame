@@ -100,6 +100,10 @@ $restart.on('click', function() {
 // Change names
 $mudarNomes.on('click', function() {
 	
+	var NUMBER_OF_NAMES = 8;
+	var NAME_MAX_SIZE = 50;
+	var NAME_FILTER_REGEX = /^[^()\/><\][\\\x22,;|]+$/;
+
 	swal({
 		title: 'Editar Nomes:',
 		showCancelButton: true,
@@ -107,27 +111,28 @@ $mudarNomes.on('click', function() {
 		cancelButtonText: 'Cancelar',
 		confirmButtonColor: '#9BCB3C',
     	confirmButtonText: 'Salvar',
-		html:
-		  '<input id="swal-input1" class="swal2-input" value ="'+names[0]+'">' +
-		  '<input id="swal-input2" class="swal2-input" value ="'+names[1]+'">' +
-		  '<input id="swal-input3" class="swal2-input" value ="'+names[2]+'">' +
-		  '<input id="swal-input4" class="swal2-input" value ="'+names[3]+'">' +
-		  '<input id="swal-input5" class="swal2-input" value ="'+names[4]+'">' +
-		  '<input id="swal-input6" class="swal2-input" value ="'+names[5]+'">' +
-		  '<input id="swal-input7" class="swal2-input" value ="'+names[6]+'">' +
-		  '<input id="swal-input8" class="swal2-input" value ="'+names[7]+'">',
+		html: (() => {
+			let htmlStr = '';
+			for(let i = 0; i < NUMBER_OF_NAMES; i++) {
+				htmlStr += '<input id="swal-input' + (i+1) + '" placeholder="(digite aqui o nome ' + (i+1) + ')" class="swal2-input" maxlength="' + NAME_MAX_SIZE + '" value="' + names[i] + '">'
+			}
+			return htmlStr;
+		})(),
 		preConfirm: () => {
 
-			names = [
-			  $('#swal-input1').val(),
-			  $('#swal-input2').val(),
-			  $('#swal-input3').val(),
-			  $('#swal-input4').val(),
-			  $('#swal-input5').val(),
-			  $('#swal-input6').val(),
-			  $('#swal-input7').val(),
-			  $('#swal-input8').val()
-			];
+			let newNames = [ ];
+			let validationStr = '';
+			for(let i = 1; i <= NUMBER_OF_NAMES; i++) {
+				validationStr += $('#swal-input' + i).val();
+				newNames.push($('#swal-input' + i).val());
+			}
+
+			if(NAME_FILTER_REGEX.test(validationStr)) {
+				alert('Por favor, use apenas letras (A-Z), números (0-9) e ponto final (.)!');
+				return;
+			}
+
+			names = newNames;
 			symbols =  names.concat(names);
 			initGame();
 			swal.close();
