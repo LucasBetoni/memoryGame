@@ -114,7 +114,7 @@ body {
   float: right;
   cursor: pointer;
 }
-*::selection {
+*::selection:not(input) {
   background: transparent;
 }
 .swal2-overlay {
