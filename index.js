@@ -101,7 +101,7 @@ $restart.on('click', function() {
 $mudarNomes.on('click', function() {
 	
 	var NUMBER_OF_NAMES = 8;
-	var NAME_MAX_SIZE = 50;
+	var NAME_MAX_SIZE = 42;
 	var NAME_FILTER_REGEX = /^[^()\/><\][\\\x22,;|]+$/;
 
 	swal({
@@ -128,7 +128,7 @@ $mudarNomes.on('click', function() {
 			}
 
 			if(!NAME_FILTER_REGEX.test(validationStr)) {
-				alert('Por favor, use apenas letras (A-Z), números (0-9) e ponto final (.)!');
+				alert('Por favor, use apenas letras (A-Z), números (0-9) e ponto final (.).');
 				return;
 			}
 

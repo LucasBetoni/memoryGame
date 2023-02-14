@@ -38,6 +38,7 @@ body {
   transition: transform 0.3s ease;
   font-family: FontAwesome;
   line-height: 75px;
+  overflow-wrap: anywhere;
 }
 .deck .card:nth-child(4n) {
   margin: 0 0 15px 0;
