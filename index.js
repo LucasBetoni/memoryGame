@@ -1,3 +1,7 @@
+var NUMBER_OF_NAMES = 8;
+var NAME_MAX_SIZE = 42;
+var NAME_FILTER_REGEX = /^[^()\/><\][\\\x22,;|]+$/;
+
 var names = [
   "Helena",
   "Alice",
@@ -50,6 +54,7 @@ var symbols = names.concat(names),
   $restart = $scorePanel.find(".restart > .fa-repeat"),
   $mudarNomes = $scorePanel.find(".restart > .fa-cog"),
   $informacoes = $scorePanel.find(".restart > .fa-info"),
+  $share = $scorePanel.find(".restart > .fa-share"),
   delay = 800,
   gameCardsQTY = symbols.length / 2,
   rank3stars = gameCardsQTY + 2,
@@ -154,12 +159,31 @@ $informacoes.on("click", function () {
   });
 });
 
+$share.on("click", function () {
+  let outputStr = window.location.protocol + "//" + window.location.host + "/?";
+  for (let i = 0; i < NUMBER_OF_NAMES; i++) {
+    if (i != 0) {
+      outputStr += "&";
+    }
+    outputStr += encodeURIComponent(names[i]);
+  }
+
+  swal({
+    title: "<strong>Compartilhe este jogo com os nomes:</strong>",
+    icon: "info",
+    html: '<input type="url" name="link" value="'+outputStr+'" readonly></input>',
+    showCloseButton: true,
+    showCancelButton: true,
+    focusConfirm: false,
+    confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+    confirmButtonAriaLabel: "Thumbs up, great!",
+    cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
+    cancelButtonAriaLabel: "Thumbs down",
+  });
+});
+
 // Change names
 $mudarNomes.on("click", function () {
-  var NUMBER_OF_NAMES = 8;
-  var NAME_MAX_SIZE = 42;
-  var NAME_FILTER_REGEX = /^[^()\/><\][\\\x22,;|]+$/;
-
   swal({
     title: "Editar Nomes:",
     showCancelButton: true,
@@ -266,3 +290,31 @@ $deck.on("click", '.card:not(".match, .open")', function () {
 });
 
 initGame();
+
+function parseURLParams(url) {
+  var queryStart = url.indexOf("?") + 1,
+    queryEnd = url.indexOf("#") + 1 || url.length + 1,
+    query = url.slice(queryStart, queryEnd - 1),
+    pairs = query.replace(/\+/g, " ").split("&"),
+    parms = {},
+    i,
+    n,
+    v,
+    nv;
+
+  if (query === url || query === "") return undefined;
+
+  for (i = 0; i < pairs.length; i++) {
+    nv = pairs[i].split("=", 2);
+    n = decodeURIComponent(nv[0]);
+    v = decodeURIComponent(nv[1]);
+
+    if (!parms.hasOwnProperty(n)) parms[n] = [];
+    parms[n].push(nv.length === 2 ? v : null);
+  }
+  return Object.keys(parms);
+}
+
+let names2 = parseURLParams(document.URL);
+console.log(names2);
+console.log(names);
