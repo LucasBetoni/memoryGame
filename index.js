@@ -127,7 +127,7 @@ $mudarNomes.on('click', function() {
 				newNames.push($('#swal-input' + i).val());
 			}
 
-			if(NAME_FILTER_REGEX.test(validationStr)) {
+			if(!NAME_FILTER_REGEX.test(validationStr)) {
 				alert('Por favor, use apenas letras (A-Z), números (0-9) e ponto final (.)!');
 				return;
 			}
