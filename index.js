@@ -184,7 +184,7 @@ $mudarNomes.on('click', function() {
 
 			names = newNames;
 			var json_str = JSON.stringify(names);
-			createCookie('mycookie-memmoryGame', json_str);
+			createCookie('mycookie-memmoryGame', json_str, 365);
 
 			symbols =  names.concat(names);
 			initGame();
