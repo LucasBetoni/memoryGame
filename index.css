@@ -15,19 +15,19 @@ body {
     font-size: 17px !important;
   }
   .deck .card {
-    height: 75px !important;
-    width: 75px !important;
+    height: 70px !important;
+    width: 70px !important;
     margin: 0 5px 5px 0 !important;
     line-height: 65px !important;
     font-size: 0 !important;
     border-radius: 8px !important;
   }
   .deck {
-    width: 320px !important;
-    height: 320px !important;
-    padding: 16px !important;
+    width: 300px !important;
+    height: 300px !important;
+    padding: 8px !important;
     border-radius: 10px !important;
-    box-shadow: 7px 7px 0 0 #000000 !important;
+    box-shadow: 6px 6px 0 0 #000000 !important;
   }
 }
 body {
