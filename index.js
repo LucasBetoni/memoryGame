@@ -43,7 +43,7 @@ var symbols =  names.concat(names),
 		$restart = $scorePanel.find('.restart > .fa-repeat'),
 		$mudarNomes = $scorePanel.find('.restart > .fa-cog'),
 		$informacoes = $scorePanel.find('.restart > .fa-info'),
-		delay = 800,
+		delay = 1400,
 		gameCardsQTY = symbols.length / 2,
 		rank3stars = gameCardsQTY + 2,
 		rank2stars = gameCardsQTY + 6,
@@ -184,7 +184,7 @@ $mudarNomes.on('click', function() {
 
 			names = newNames;
 			var json_str = JSON.stringify(names);
-			createCookie('mycookie-memmoryGame', json_str, 365);
+			createCookie('mycookie-memmoryGame', json_str, 65);
 
 			symbols =  names.concat(names);
 			initGame();
