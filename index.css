@@ -31,13 +31,13 @@ body {
   color: #ffffff;
   text-align: center;
   border-radius: 8px;
-  vertical-align: top;
+  vertical-align: middle;
   cursor: pointer;
   transform: rotateY(180deg);
   transform-style: preserve-3d;
   transition: transform 0.3s ease;
   font-family: FontAwesome;
-  line-height: 75px;
+
   overflow-wrap: anywhere;
 }
 .deck .card:nth-child(4n) {
@@ -68,7 +68,7 @@ body {
 }
 #score-panel {
   text-align: left;
-  width: 345px;
+  width: 670px;
   margin-bottom: 10px;
   font-size: x-large ;
 }
@@ -77,6 +77,7 @@ body {
   padding: 0;
   display: inline-block;
   margin: 0 5px 0 0;
+
 }
 #score-panel .stars li {
   list-style: none;

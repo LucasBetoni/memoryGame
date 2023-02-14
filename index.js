@@ -10,6 +10,7 @@ var symbols =  names.concat(names),
 		$ratingStars = $scorePanel.find('i'),
 		$restart = $scorePanel.find('.restart > .fa-repeat'),
 		$mudarNomes = $scorePanel.find('.restart > .fa-cog'),
+		$informacoes = $scorePanel.find('.restart > .fa-info'),
 		delay = 800,
 		gameCardsQTY = symbols.length / 2,
 		rank3stars = gameCardsQTY + 2,
@@ -96,6 +97,23 @@ $restart.on('click', function() {
     }
   })
 });
+
+
+// Info
+$informacoes.on('click', function() {
+	swal({
+	  allowEscapeKey: true,
+	  allowOutsideClick: true,
+	  title: 'Jogo da Memoria - Nomes',
+	  text: "Um simples jogo da memória utilizando 8 nomes diferentes. É possível alterar os nomes na configuração.",
+	  type: 'warning',
+	  showCancelButton: false,
+	  showConfirmButton: true,
+	  confirmButtonColor: '#9BCB3C',
+	  confirmButtonText: 'OK!',
+	})
+  });
+
 
 // Change names
 $mudarNomes.on('click', function() {
