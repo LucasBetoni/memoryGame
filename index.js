@@ -277,8 +277,9 @@ $deck.on("click", '.card:not(".match, .open")', function () {
     card = $this.context.innerHTML;
   $this.addClass("open show");
 
-  //audio = new Audio($this.context.innerText+'.mp3');
-  namesAudio[$this.context.innerText].play();
+  if($this.context.innerText in namesAudio) {
+    namesAudio[$this.context.innerText].play();
+  }
 
   opened.push(card);
 
