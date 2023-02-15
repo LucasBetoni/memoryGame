@@ -55,6 +55,8 @@ function validation(test_names) {
 let names2 = parseURLParams(document.URL);
 if (names2 !== undefined && names2.length == NUMBER_OF_NAMES) names = names2;
 
+
+
 var symbols = names.concat(names),
   opened = [],
   match = 0,
@@ -89,9 +91,13 @@ function shuffle(array) {
 
   return array;
 }
-
+let namesAudio = { }
 // Initial Game
 function initGame() {
+  
+  for(let i = 0; i<NUMBER_OF_NAMES; i++){
+  namesAudio[names[i]] = Audio(names[i]+'.mp3');
+  }
   var cards = shuffle(symbols);
   $deck.empty();
   match = 0;
@@ -263,8 +269,8 @@ $deck.on("click", '.card:not(".match, .open")', function () {
     card = $this.context.innerHTML;
   $this.addClass("open show");
   
-audio = new Audio($this.context.innerText+'.mp3');
- audio.play();
+//audio = new Audio($this.context.innerText+'.mp3');
+ namesAudio[$this.context.innerText].play();
 
   opened.push(card);
 
