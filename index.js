@@ -249,7 +249,10 @@ $mudarNomes.on("click", function () {
     },
   });
 });
-
+    var audio;
+    var audio_correto = new Audio('correto.mp3');
+    var audio_errou = new Audio('errou.mp3');
+    var audio_ganhou = new Audio('ganhou.mp3');
 // Card flip
 $deck.on("click", '.card:not(".match, .open")', function () {
   if ($(".show").length > 1) {
@@ -259,12 +262,18 @@ $deck.on("click", '.card:not(".match, .open")', function () {
   var $this = $(this),
     card = $this.context.innerHTML;
   $this.addClass("open show");
+  
+audio = new Audio($this.context.innerText+'.mp3');
+ audio.play();
+
   opened.push(card);
 
   // Compare with opened card
   if (opened.length > 1) {
     if (card === opened[0]) {
       $deck.find(".open").addClass("match animated infinite rubberBand");
+
+      audio_correto.play();
       setTimeout(function () {
         $deck
           .find(".match")
@@ -273,7 +282,7 @@ $deck.on("click", '.card:not(".match, .open")', function () {
       match++;
     } else {
       $deck.find(".open").addClass("notmatch animated infinite wobble");
-
+      audio_errou.play();
       setTimeout(function () {
         $deck.find(".open").removeClass("animated infinite wobble");
       }, delay / 1.5);
@@ -300,7 +309,7 @@ $deck.on("click", '.card:not(".match, .open")', function () {
   if (gameCardsQTY === match) {
     setRating(movimentos);
     var score = setRating(movimentos).score;
-    setTimeout(function () {
+    setTimeout(function () { audio_ganhou.play();
       endGame(movimentos, score);
     }, 500);
   }
