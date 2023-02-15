@@ -1,6 +1,8 @@
-var NUMBER_OF_NAMES = 8;
-var NAME_MAX_SIZE = 42;
-var NAME_FILTER_REGEX = /^[^()\/><\][\\\x22,;|]+$/;
+const NUMBER_OF_NAMES = 8;
+const NAME_MAX_SIZE = 42;
+const NAME_FILTER_REGEX = /^[^()\/><\][\\\x22,;|]+$/;
+
+var namesAudio = {};
 
 var names = [
   "Helena",
@@ -89,15 +91,18 @@ function shuffle(array) {
 
   return array;
 }
-let namesAudio = {};
+
 function loadAudio(){
   for (let i = 0; i < NUMBER_OF_NAMES; i++) {
     try {
       if(!(names[i] in namesAudio)){
-         namesAudio[names[i]] = Audio(names[i] + ".mp3");
+         namesAudio[names[i]] = new Audio(names[i] + ".mp3");
       }
     } catch(e) {
       console.log('Erro ao carregar:', e);
+      if(names[i] in namesAudio) {
+        delete namesAudio[names[i]];
+      }
     }
   }
 
@@ -277,7 +282,7 @@ $deck.on("click", '.card:not(".match, .open")', function () {
     card = $this.context.innerHTML;
   $this.addClass("open show");
 
-  if($this.context.innerText in namesAudio) {
+  if($this.context.innerText in namesAudio && namesAudio[$this.context.innerText].readyState === 4) {
     namesAudio[$this.context.innerText].play();
   }
 
