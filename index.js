@@ -1,6 +1,9 @@
 const NUMBER_OF_NAMES = 8;
 const NAME_MAX_SIZE = 42;
 const NAME_FILTER_REGEX = /^[^()\/><\][\\\x22,;|]+$/;
+const MAX_LOADED_AUDIOS = 100;
+const AUDIO_URL = './{name}.mp3';
+//const AUDIO_URL = 'http://localhost:3000/requestaudio/{name}?pass=coelho';
 
 var namesAudio = {};
 
@@ -45,11 +48,16 @@ function getCookie(c_name) {
 var json_str = getCookie("mycookie-memmoryGame");
 if (!json_str == "") names = JSON.parse(json_str);
 
-//to do
 function validation(test_names) {
-  test_names.forEach((element) => {
-    if (this == "" || this == null) return false;
-  });
+
+  for(let i = 0; i < test_names.length; i++) {
+    if (!NAME_FILTER_REGEX.test(test_names[i].trim())) {
+      return false;
+    }
+    if (test_names.length > NAME_MAX_SIZE) {
+      return false;
+    }
+  }
 
   return true;
 }
@@ -93,17 +101,34 @@ function shuffle(array) {
 }
 
 function loadAudio(){
+  let audio;
+
+  if (Object.keys(namesAudio).length > MAX_LOADED_AUDIOS) {
+    namesAudio = { }; // Limpar objeto com os áudios pra evitar sobrecarregar a RAM do usuário.
+  }
+
   for (let i = 0; i < NUMBER_OF_NAMES; i++) {
-    try {
-      if(!(names[i] in namesAudio)){
-         namesAudio[names[i]] = new Audio(names[i] + ".mp3");
-      }
-    } catch(e) {
-      console.log('Erro ao carregar:', e);
-      if(names[i] in namesAudio) {
-        delete namesAudio[names[i]];
-      }
+    if(names[i] in namesAudio){
+      continue;
     }
+
+    try {
+      audio = new Audio(AUDIO_URL.replace('{name}', encodeURIComponent(names[i])));
+    } catch(e) {
+      console.log('Erro ao criar áudio:', e);
+      continue;
+    }
+
+    audio.dataset.name = names[i];
+
+    audio.addEventListener("canplaythrough", (event) => {
+      namesAudio[event.target.dataset.name] = event.target;
+    });
+    
+    audio.addEventListener("error", (event) => {
+      console.log('Erro ao carregar áudio para o seguinte nome: ', event.target.dataset.name, event.target.src);
+    });
+
   }
 
 };
@@ -245,15 +270,13 @@ $mudarNomes.on("click", function () {
     })(),
     preConfirm: () => {
       let newNames = [];
-      let validationStr = "";
       for (let i = 1; i <= NUMBER_OF_NAMES; i++) {
-        validationStr += $("#swal-input" + i).val();
         newNames.push($("#swal-input" + i).val());
       }
 
-      if (!NAME_FILTER_REGEX.test(validationStr)) {
+      if (!validation(newNames)) {
         alert(
-          "Por favor, use apenas letras (A-Z), números (0-9) e ponto final (.)."
+          "Por favor, use apenas letras (A-Z), números (0-9) e ponto final (.). Preencha todos os nomes."
         );
         return;
       }
@@ -282,7 +305,7 @@ $deck.on("click", '.card:not(".match, .open")', function () {
     card = $this.context.innerHTML;
   $this.addClass("open show");
 
-  if($this.context.innerText in namesAudio && namesAudio[$this.context.innerText].readyState === 4) {
+  if($this.context.innerText in namesAudio) {
     namesAudio[$this.context.innerText].play();
   }
 
