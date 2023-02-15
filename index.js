@@ -45,17 +45,15 @@ if (!json_str == "") names = JSON.parse(json_str);
 
 //to do
 function validation(test_names) {
-  test_names.forEach(element => { if(this == "" || this == null) return false;
-    
+  test_names.forEach((element) => {
+    if (this == "" || this == null) return false;
   });
-  
+
   return true;
 }
 
 let names2 = parseURLParams(document.URL);
 if (names2 !== undefined && names2.length == NUMBER_OF_NAMES) names = names2;
-
-
 
 var symbols = names.concat(names),
   opened = [],
@@ -91,13 +89,23 @@ function shuffle(array) {
 
   return array;
 }
-let namesAudio = { }
+let namesAudio = {};
+function loadAudio(){
+  for (let i = 0; i < NUMBER_OF_NAMES; i++) {
+    try {
+      if(!(names[i] in namesAudio)){
+         namesAudio[names[i]] = Audio(names[i] + ".mp3");
+      }
+    } catch(e) {
+      console.log('Erro ao carregar:', e);
+    }
+  }
+
+};
+
 // Initial Game
 function initGame() {
-  
-  for(let i = 0; i<NUMBER_OF_NAMES; i++){
-  namesAudio[names[i]] = Audio(names[i]+'.mp3');
-  }
+  loadAudio();
   var cards = shuffle(symbols);
   $deck.empty();
   match = 0;
@@ -255,10 +263,10 @@ $mudarNomes.on("click", function () {
     },
   });
 });
-    var audio;
-    var audio_correto = new Audio('correto.mp3');
-    var audio_errou = new Audio('errou.mp3');
-    var audio_ganhou = new Audio('ganhou.mp3');
+var audio;
+var audio_correto = new Audio("correto.mp3");
+var audio_errou = new Audio("errou.mp3");
+var audio_ganhou = new Audio("ganhou.mp3");
 // Card flip
 $deck.on("click", '.card:not(".match, .open")', function () {
   if ($(".show").length > 1) {
@@ -268,9 +276,9 @@ $deck.on("click", '.card:not(".match, .open")', function () {
   var $this = $(this),
     card = $this.context.innerHTML;
   $this.addClass("open show");
-  
-//audio = new Audio($this.context.innerText+'.mp3');
- namesAudio[$this.context.innerText].play();
+
+  //audio = new Audio($this.context.innerText+'.mp3');
+  namesAudio[$this.context.innerText].play();
 
   opened.push(card);
 
@@ -315,7 +323,8 @@ $deck.on("click", '.card:not(".match, .open")', function () {
   if (gameCardsQTY === match) {
     setRating(movimentos);
     var score = setRating(movimentos).score;
-    setTimeout(function () { audio_ganhou.play();
+    setTimeout(function () {
+      audio_ganhou.play();
       endGame(movimentos, score);
     }, 500);
   }
