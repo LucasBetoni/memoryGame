@@ -108,12 +108,12 @@ function loadAudio(){
   }
 
   for (let i = 0; i < NUMBER_OF_NAMES; i++) {
-    if(names[i] in namesAudio){
+    if(names[i].trim().toLowerCase() in namesAudio){
       continue;
     }
 
     try {
-      audio = new Audio(AUDIO_URL.replace('{name}', encodeURIComponent(names[i])));
+      audio = new Audio(AUDIO_URL.replace('{name}', encodeURIComponent(names[i].trim().toLowerCase())));
     } catch(e) {
       console.log('Erro ao criar áudio:', e);
       continue;
@@ -122,7 +122,7 @@ function loadAudio(){
     audio.dataset.name = names[i];
 
     audio.addEventListener("canplaythrough", (event) => {
-      namesAudio[event.target.dataset.name] = event.target;
+      namesAudio[event.target.dataset.name.trim().toLowerCase()] = event.target;
     });
     
     audio.addEventListener("error", (event) => {
@@ -305,8 +305,8 @@ $deck.on("click", '.card:not(".match, .open")', function () {
     card = $this.context.innerHTML;
   $this.addClass("open show");
 
-  if($this.context.innerText in namesAudio) {
-    namesAudio[$this.context.innerText].play();
+  if($this.context.innerText.trim().toLowerCase() in namesAudio) {
+    namesAudio[$this.context.innerText.trim().toLowerCase()].play();
   }
 
   opened.push(card);
@@ -342,7 +342,7 @@ $deck.on("click", '.card:not(".match, .open")', function () {
         );
       }, delay);
     }
-    opened = [];
+    opened = [ ];
     movimentos++;
     setRating(movimentos);
     $moveNum.html(movimentos);
