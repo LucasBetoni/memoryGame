@@ -3,7 +3,7 @@ const NAME_MAX_SIZE = 42;
 const NAME_FILTER_REGEX = /^[^()\/><\][\\\x22,;|]+$/;
 const MAX_LOADED_AUDIOS = 100;
 //const AUDIO_URL = './{name}.mp3';
-const AUDIO_URL = 'http://132.226.248.223:3000/requestaudio/{name}?key=a188022f2dc551fdb37e8a844c01dc1b';
+const AUDIO_URL = 'https://lks-oracle.cluster.mcarvalhor.com/requestaudio/{name}?key=a188022f2dc551fdb37e8a844c01dc1b';
 const EFFECT_AUDIO_VOLUME = 0.5;
 
 var namesAudio = {};
