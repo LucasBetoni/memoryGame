@@ -3,7 +3,8 @@ const NAME_MAX_SIZE = 42;
 const NAME_FILTER_REGEX = /^[^()\/><\][\\\x22,;|]+$/;
 const MAX_LOADED_AUDIOS = 100;
 const AUDIO_URL = './{name}.mp3';
-//const AUDIO_URL = 'http://localhost:3000/requestaudio/{name}?pass=coelho';
+//const AUDIO_URL = 'http://localhost:3000/requestaudio/{name}?key=a188022f2dc551fdb37e8a844c01dc1b';
+const EFFECT_AUDIO_VOLUME = 0.5;
 
 var namesAudio = {};
 
@@ -295,6 +296,10 @@ var audio;
 var audio_correto = new Audio("correto.mp3");
 var audio_errou = new Audio("errou.mp3");
 var audio_ganhou = new Audio("ganhou.mp3");
+
+audio_correto.volume = EFFECT_AUDIO_VOLUME;
+audio_errou.volume = EFFECT_AUDIO_VOLUME;
+
 // Card flip
 $deck.on("click", '.card:not(".match, .open")', function () {
   if ($(".show").length > 1) {
