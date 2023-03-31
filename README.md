@@ -13,7 +13,7 @@
     <ol>
         <li>Clique em qualquer carta para revelar seu nome.</li>
         <li>Clique em outra carta para revelar seu nome.</li>
-        <li>Se os nomes das duas cartas coincidirem, o par desaparecerá, e você ganhará pontos.</li>
+        <li>Se os nomes das duas cartas coincidirem, o par se revelará, e você ganhará pontos.</li>
         <li>Se os nomes das duas cartas não coincidirem, elas virarão novamente, e você terá que tentar novamente.</li>
         <li>Repita os passos 1 a 4 até que todos os pares sejam encontrados. 🤞</li>
     </ol>
