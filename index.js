@@ -80,9 +80,9 @@ var symbols = names.concat(names),
   $share = $scorePanel.find(".restart > .fa-share"),
   delay = 800,
   gameCardsQTY = symbols.length / 2,
-  rank3stars = gameCardsQTY + 2,
-  rank2stars = gameCardsQTY + 6,
-  rank1stars = gameCardsQTY + 10;
+  rank3stars = gameCardsQTY + 12,
+  rank2stars = gameCardsQTY + 16,
+  rank1stars = gameCardsQTY + 20;
 
 // Shuffle function From http://stackoverflow.com/a/2450976
 function shuffle(array) {
