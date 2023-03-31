@@ -2,7 +2,7 @@
     <h1>👋 Bem-vindo ao Jogo da Memória para Alfabetização Infantil!</h1>
     <h2>🧒 Uma Maneira Divertida de Aprender o Alfabeto</h2>
     <p>
-        Este jogo foi desenvolvido para e com as professoras Mariana e Andrea em seu trabalho de conclusão de curso sobre alfabetização. Queríamos criar uma maneira interativa e envolvente para as crianças aprenderem e lembrarem o alfabeto.
+        Este jogo foi desenvolvido para e com as professora Andrea Veiga Betoni e seu time em seu projeto sobre alfabetização. Queríamos criar uma maneira interativa e envolvente para as crianças aprenderem e lembrarem o alfabeto.
         O jogo foi construído utilizando o código de design de jogo da memória com a licença MIT de Elior Tabeka e utiliza o serviço AWS Polly para ler os nomes das cartas em voz alta. 🎮🔊
     </p>
     <h2>🃏 Como Jogar</h2>
